@@ -1,0 +1,90 @@
+.input-input {
+    border: 0;
+    outline: 0;
+    background-color: transparent;
+    flex: 1;
+
+    font-size: 20px;
+
+    z-index: 1;
+
+    transition: 0.2s ease-in-out;
+}
+
+.input-main {
+    flex: 1;
+    display: flex;
+    align-items: center;
+    position: relative;
+}
+
+.input-container {
+    color: #797c7c;
+    display: flex;
+    align-items: center;
+
+    padding: 0.4rem 0.4rem;
+    gap: 0.4rem;
+    /* position: relative; */
+
+    border: 1px solid #797c7c;
+    border-radius: 0.5rem;
+
+    cursor: text;
+    transition: 0.2s ease-in-out;
+
+    min-height: 2.4rem;
+}
+
+.input-label {
+    color: #797c7c;
+    z-index: 0;
+
+    font-family: "Lexend";
+
+    transition: 0.2s ease-in-out;
+    position: absolute;
+}
+
+.input-input::placeholder {
+    opacity: 0;
+}
+
+.input-input:focus,
+.input-input:not(:placeholder-shown) {
+    transform: translateY(0.4rem);
+}
+
+.input-input:focus ~ .input-label,
+.input-input:not(:placeholder-shown) ~ .input-label {
+    transform: translateY(-0.9rem);
+    font-size: 0.8rem;
+}
+
+.input-input:focus ~ .input-label {
+    color: #ef8354;
+}
+
+.input-container:has(.input-input:focus) {
+    border-color: #ef8354;
+    color: #ef8354;
+}
+
+.input-leading {
+    font-size: 24px;
+
+    display: flex;
+
+    align-items: center;
+    justify-content: center;
+}
+
+.input-leading button {
+    color: #797c7c;
+
+    transition: color 0.2s ease-in-out;
+}
+
+.input-container:has(.input-input:focus) > .input-leading button {
+    color: #ef8354;
+}

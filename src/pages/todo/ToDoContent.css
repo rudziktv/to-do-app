@@ -1,0 +1,35 @@
+#todo-content {
+    flex: 100;
+
+    max-width: 700px;
+}
+
+#todo-content-header {
+    padding: 1rem 1rem;
+
+    display: flex;
+    gap: 2rem;
+}
+
+#todo-content-title {
+    font-size: 2.5rem;
+}
+
+#todo-content-count {
+    font-size: 2.5rem;
+    font-weight: 300;
+
+    background-color: #212430;
+    border: 1px solid #797c7c;
+    box-shadow: 0 0 8px 2px rgba(0, 0, 0, 0.12);
+
+    border-radius: 0.5rem;
+
+    min-width: 3rem;
+
+    text-align: center;
+}
+
+#todo-content-body {
+    padding: 0 1rem;
+}

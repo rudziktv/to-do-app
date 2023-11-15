@@ -1,0 +1,33 @@
+#todo-description {
+    display: flex;
+    flex-direction: column;
+
+    border-radius: 1rem;
+    padding: 1rem;
+
+    background-color: #212430;
+
+    flex: 1;
+
+    box-sizing: border-box;
+}
+#todo-description-body {
+    display: flex;
+    flex-direction: column;
+
+    gap: 0.8em;
+}
+
+#todo-description-actions {
+    margin-top: auto;
+
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    gap: 0.5rem;
+}
+
+#todo-description-delete {
+    color: #f45866;
+}
