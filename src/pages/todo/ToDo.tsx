@@ -24,6 +24,7 @@ const ToDoPage = () => {
         },
     ]);
 
+    const totalCount = tasks.length;
     const completedCount = tasks.filter((task) => task.completed).length;
     const notCompletedCount = tasks.length - completedCount;
     const importantCount = tasks.filter((task) => task.important).length;
@@ -51,6 +52,7 @@ const ToDoPage = () => {
                 </div>
                 <span className="todo-nav-subtitle">Tasks</span>
                 <ToDoNavElement
+                    className="active"
                     name="Today"
                     count={0}
                     icon={<i className="ri-calendar-todo-line" />}
@@ -94,7 +96,7 @@ const ToDoPage = () => {
             <div id="todo-content">
                 <div id="todo-content-header">
                     <span id="todo-content-title">Today</span>
-                    <span id="todo-content-count">0</span>
+                    <span id="todo-content-count">{totalCount}</span>
                 </div>
                 <div id="todo-content-body">
                     {/* <input type="text" /> */}
@@ -121,11 +123,12 @@ const ToDoPage = () => {
 
                     {/* <ToDoTask />
                     <ToDoTask /> */}
-
-                    <div id="todo-content-tasks">
-                        {tasks.map((task, index) => (
-                            <ToDoTask task={task} key={index} />
-                        ))}
+                    <div id="todo-content-tasks-wrapper">
+                        <div id="todo-content-tasks">
+                            {tasks.map((task, index) => (
+                                <ToDoTask task={task} key={index} />
+                            ))}
+                        </div>
                     </div>
                 </div>
             </div>

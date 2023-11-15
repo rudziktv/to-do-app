@@ -4,6 +4,7 @@
 
     /* width: 100%;
     height: 100%; */
+    overflow: hidden;
     box-sizing: border-box;
 }
 
@@ -17,6 +18,8 @@
     background-color: #212430;
 
     flex: 1;
+
+    gap: 0.1rem;
 }
 
 #todo-nav-header {
@@ -52,6 +55,11 @@
     /* font-size: 14px; */
 
     /* gap: 2rem; */
+}
+
+.todo-nav-element.active {
+    color: #ef8354;
+    background-color: #ffffff0c;
 }
 
 .todo-nav-element::after {
@@ -98,6 +106,7 @@
 
 .todo-nav-element-count {
     background-color: #191b24;
+    color: #ffffff;
     /* border: 1px solid white; */
 
     box-shadow: 0 0 2px 0 rgba(0, 0, 0, 0.38);
@@ -112,6 +121,8 @@
     border-radius: 0.2rem;
 
     margin-left: 2rem;
+
+    z-index: 1;
 }
 
 #todo-nav-actions {
