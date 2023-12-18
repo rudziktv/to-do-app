@@ -1,7 +1,11 @@
 import "./DropdownItem.css";
 
-const DropdownItem = ({ label }: DropdownItemProps) => {
-    return <div className="dropdown-item hover-element">{label}</div>;
+const DropdownItem = ({ label, onClick }: DropdownItemProps) => {
+    return (
+        <div className="dropdown-item hover-element" onClick={onClick}>
+            {label}
+        </div>
+    );
 };
 
 export interface DropdownItemProps {

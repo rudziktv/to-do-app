@@ -6,6 +6,11 @@
     padding: 0.5rem;
 
     cursor: context-menu;
+
+    min-height: 65px;
+    box-sizing: border-box;
+    border-radius: 0.5rem;
+    overflow: hidden;
 }
 
 .todo-task-header {

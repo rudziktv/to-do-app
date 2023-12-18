@@ -7,7 +7,7 @@ const TaskImportantColor = (importantLevel: ImportantLevel) => {
         case 3:
             return "#da4167";
         default:
-            return "#ffffff";
+            return "#797c7c";
     }
 };
 

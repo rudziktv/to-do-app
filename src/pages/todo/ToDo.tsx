@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import TextInput from "../../components/TextInput/TextInput";
 import "./ToDo.css";
 import "./ToDoContent.css";
@@ -8,40 +8,50 @@ import { ToDoTask } from "./ToDoTask";
 import { ITask } from "../../services/tasks/ITask";
 import IconButton from "../../components/IconButton/IconButton";
 import Dropdown from "../../components/Dropdown/Dropdown";
+import { ImportantLevel } from "../../services/tasks/TaskImportant";
 
 const ToDoPage = () => {
     const [newTask, setNewTask] = useState("");
-    const [priority, setPriority] = useState(0);
     const [tasks, setTasks] = useState<ITask[]>([
         {
-            id: "d3ed5e5a-af41-5809-9fb5-614359aff0cc",
-            title: "Create new docs.",
+            id: crypto.randomUUID(),
+            title: "Create new docs",
             completed: false,
             important: 3,
         },
         {
-            id: "d3ed5e5a-af41-5809-9fb5-614359aff0cc",
-            title: "Create new docs.",
+            id: crypto.randomUUID(),
+            title: "Get some sleep",
             completed: false,
             important: 2,
         },
         {
-            id: "d3ed5e5a-af41-5809-9fb5-614359aff0cc",
-            title: "Create new docs.",
+            id: crypto.randomUUID(),
+            title: "Done this fucking music app",
             completed: false,
             important: 1,
         },
         {
-            id: "7c45609a-e1af-52f2-b4b5-33b2b9d6bc81",
-            title: "Don't be so lazy.",
+            id: crypto.randomUUID(),
+            title: "Don't be so lazy",
             completed: true,
         },
     ]);
+
+    const [selectedTask, setSelectedTask] = useState(0);
 
     const totalCount = tasks.length;
     const completedCount = tasks.filter((task) => task.completed).length;
     const notCompletedCount = tasks.length - completedCount;
     const importantCount = tasks.filter((task) => task.important).length;
+
+    const [title, setTitle] = useState(tasks[selectedTask].title);
+    const [description, setDescription] = useState(
+        tasks[selectedTask].description || ""
+    );
+    const [priority, setPriority] = useState(
+        tasks[selectedTask].important || 0
+    );
 
     const addNewTask = () => {
         if (!newTask) {
@@ -50,13 +60,40 @@ const ToDoPage = () => {
         setTasks([
             ...tasks,
             {
-                id: "d3ed5e5a-af41-5809-9fb5-614359aff0cc",
+                id: crypto.randomUUID(),
                 title: newTask,
                 completed: false,
             },
         ]);
         setNewTask("");
     };
+
+    const editTask = (task: ITask) => {
+        setTasks(
+            tasks.map((t) => {
+                if (t.id === task.id) {
+                    return task;
+                }
+                return t;
+            })
+        );
+    };
+
+    useEffect(() => {
+        setTitle(tasks[selectedTask].title);
+        setDescription(tasks[selectedTask].description || "");
+        setPriority(tasks[selectedTask].important || 0);
+    }, [selectedTask]);
+
+    useEffect(() => {
+        console.log("changed");
+        editTask({
+            ...tasks[selectedTask],
+            title: title,
+            description: description,
+            important: priority as ImportantLevel,
+        });
+    }, [title, description, priority]);
 
     return (
         <div className="screen" id="todo-screen">
@@ -92,7 +129,7 @@ const ToDoPage = () => {
                     icon={<i className="ri-list-check-3" />}
                 />
                 <span className="todo-nav-subtitle">Lists</span>
-                <ToDoNavElement name="My list" color="#6C91C2" count={0} />
+                <ToDoNavElement name="Main" color="#6C91C2" count={0} />
                 <ToDoNavElement name="My work" count={0} />
 
                 <div id="todo-nav-actions">
@@ -140,7 +177,15 @@ const ToDoPage = () => {
                     <div id="todo-content-tasks-wrapper">
                         <div id="todo-content-tasks">
                             {tasks.map((task, index) => (
-                                <ToDoTask task={task} key={index} />
+                                <ToDoTask
+                                    task={task}
+                                    key={index}
+                                    index={index}
+                                    setSelectedTask={() =>
+                                        setSelectedTask(index)
+                                    }
+                                    editTask={editTask}
+                                />
                             ))}
                         </div>
                     </div>
@@ -151,44 +196,29 @@ const ToDoPage = () => {
                     <span id="todo-nav-title">Selected item</span>
                 </div>
                 <div id="todo-description-body">
-                    <TextInput label="Item Title" />
-                    <TextInput label="Item Description" />{" "}
-                    <span>Item Date</span>
+                    <TextInput
+                        label="Item Title"
+                        value={title}
+                        onTextChange={setTitle}
+                    />
+                    <TextInput
+                        label="Item Description"
+                        value={description}
+                        onTextChange={setDescription}
+                    />
+
+                    <TextInput type="date" label="Item Finish Date" />
+
                     <span>Item Tags</span>
-                    <span>Priority</span>
                     <Dropdown
                         selected={priority}
                         setSelected={setPriority}
                         label="Priority"
-                        options={[
-                            {
-                                value: 3,
-                                label: "High",
-                            },
-                            {
-                                value: 2,
-                                label: "Med",
-                            },
-                            {
-                                value: 1,
-                                label: "Low",
-                            },
-                            {
-                                value: 0,
-                                label: "None",
-                            },
-                        ]}
+                        options={ImportanceItems}
                     />
-                    {/* <select name="" id="">
-                        <option value="">High</option>
-                        <option value="">Med</option>
-                        <option value="">Low</option>
-                        <option value="">None</option>
-                    </select> */}
                 </div>
                 <div id="todo-description-actions">
                     <IconButton
-                        // id="todo-description-delete"
                         icon={<i className="ri-save-line" />}
                         onClick={() => {}}
                     />
@@ -202,5 +232,24 @@ const ToDoPage = () => {
         </div>
     );
 };
+
+const ImportanceItems: { value: ImportantLevel; label: string }[] = [
+    {
+        value: 0,
+        label: "None",
+    },
+    {
+        value: 1,
+        label: "Low",
+    },
+    {
+        value: 2,
+        label: "Med",
+    },
+    {
+        value: 3,
+        label: "High",
+    },
+];
 
 export default ToDoPage;

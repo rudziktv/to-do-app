@@ -9,6 +9,7 @@
     z-index: 1;
 
     transition: 0.2s ease-in-out;
+    font-family: Outfit;
 }
 
 .input-main {
@@ -40,7 +41,7 @@
     color: #797c7c;
     z-index: 0;
 
-    font-family: "Lexend";
+    font-family: Outfit;
 
     transition: 0.2s ease-in-out;
     position: absolute;

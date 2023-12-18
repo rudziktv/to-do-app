@@ -6,6 +6,7 @@
     height: 100%; */
     overflow: hidden;
     box-sizing: border-box;
+    justify-content: space-between;
 }
 
 #todo-nav {
@@ -18,6 +19,8 @@
     background-color: #212430;
 
     flex: 1;
+
+    max-width: 256px;
 
     gap: 0.1rem;
 }

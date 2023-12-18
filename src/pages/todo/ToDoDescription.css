@@ -9,6 +9,9 @@
 
     flex: 1;
 
+    /* margin-left: auto; */
+    max-width: 512px;
+
     box-sizing: border-box;
 }
 #todo-description-body {

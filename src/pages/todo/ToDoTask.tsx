@@ -1,39 +1,47 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import TaskCheck from "../../components/TaskCheck/TaskCheck";
 import { ITask } from "../../services/tasks/ITask";
 import "./ToDoTask.css";
 import { TaskImportantColor } from "../../services/tasks/TaskImportant";
 
-export const ToDoTask = ({ task }: ToDoTaskProps) => {
-    const [first, setFirst] = useState(false);
+export const ToDoTask = ({
+    task,
+    editTask,
+    setSelectedTask,
+}: ToDoTaskProps) => {
+    const [completed, setCompleted] = useState(task.completed);
+
+    useEffect(() => {
+        editTask?.({ ...task, completed });
+    }, [completed]);
+
     return (
-        <div className="hover-element todo-task">
+        <div className="hover-element todo-task" onClick={setSelectedTask}>
             <div className="todo-task-header">
-                <TaskCheck checked={first} onChange={setFirst} />
+                <TaskCheck checked={completed} onChange={setCompleted} />
                 {/* <input type="checkbox" name="" id="" checked={task.completed} /> */}
                 <span>{task.title}</span>
             </div>
 
             <div className="todo-task-tags">
-                {task.important && (
-                    <div
-                        className="todo-task-tag"
-                        style={{
-                            color: TaskImportantColor(task.important),
-                        }}
-                    >
-                        <i className="ri-flag-2-line" />
-                        {/* <div className="todo-task-tag-icon" /> */}
-                        Important
-                    </div>
-                )}
-                <div className="todo-task-tag">
+                <div
+                    className="todo-task-tag"
+                    style={{
+                        color: TaskImportantColor(task.important || 0),
+                    }}
+                >
+                    <i className="ri-flag-2-line" />
+                    {task.important ? "Important" : "None"}
+                    {/* <div className="todo-task-tag-icon" /> */}
+                </div>
+
+                {/* <div className="todo-task-tag">
                     <i className="ri-calendar-todo-line" />
                     14-11-2023
-                </div>
+                </div> */}
                 <div className="todo-task-tag">
                     <div className="todo-task-tag-icon" />
-                    My list
+                    Main
                 </div>
             </div>
         </div>
@@ -42,4 +50,7 @@ export const ToDoTask = ({ task }: ToDoTaskProps) => {
 
 export interface ToDoTaskProps {
     task: ITask;
+    index?: number;
+    setSelectedTask: () => void;
+    editTask?: (task: ITask) => void;
 }
