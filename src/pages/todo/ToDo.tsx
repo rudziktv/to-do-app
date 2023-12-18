@@ -45,12 +45,12 @@ const ToDoPage = () => {
     const notCompletedCount = tasks.length - completedCount;
     const importantCount = tasks.filter((task) => task.important).length;
 
-    const [title, setTitle] = useState(tasks[selectedTask].title);
+    const [title, setTitle] = useState(tasks[selectedTask]?.title || "");
     const [description, setDescription] = useState(
-        tasks[selectedTask].description || ""
+        tasks[selectedTask]?.description || ""
     );
     const [priority, setPriority] = useState(
-        tasks[selectedTask].important || 0
+        tasks[selectedTask]?.important || 0
     );
 
     const addNewTask = () => {
@@ -79,14 +79,22 @@ const ToDoPage = () => {
         );
     };
 
+    const deleteTask = (index: number) => {
+        setTasks(tasks.filter((_, i) => i !== index));
+        setSelectedTask(-1);
+    };
+
     useEffect(() => {
-        setTitle(tasks[selectedTask].title);
-        setDescription(tasks[selectedTask].description || "");
-        setPriority(tasks[selectedTask].important || 0);
+        setTitle(tasks[selectedTask]?.title || "");
+        setDescription(tasks[selectedTask]?.description || "");
+        setPriority(tasks[selectedTask]?.important || 0);
     }, [selectedTask]);
 
     useEffect(() => {
-        console.log("changed");
+        if (selectedTask < 0) {
+            return;
+        }
+
         editTask({
             ...tasks[selectedTask],
             title: title,
@@ -225,7 +233,9 @@ const ToDoPage = () => {
                     <IconButton
                         id="todo-description-delete"
                         icon={<i className="ri-delete-bin-7-line" />}
-                        onClick={() => {}}
+                        onClick={() => {
+                            deleteTask(selectedTask);
+                        }}
                     />
                 </div>
             </div>
