@@ -25,6 +25,7 @@
 .task-check.checked {
     border-color: var(--active);
     color: var(--active);
+    background-color: var(--active);
 }
 
 .task-check > .task-check-icon {
@@ -34,6 +35,7 @@
 }
 
 .task-check.checked > .task-check-icon {
-    color: var(--active);
+    /* color: var(--active); */
+    color: var(--background-color);
     scale: 1;
 }

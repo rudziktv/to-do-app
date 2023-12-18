@@ -2,6 +2,7 @@ import { useState } from "react";
 import TaskCheck from "../../components/TaskCheck/TaskCheck";
 import { ITask } from "../../services/tasks/ITask";
 import "./ToDoTask.css";
+import { TaskImportantColor } from "../../services/tasks/TaskImportant";
 
 export const ToDoTask = ({ task }: ToDoTaskProps) => {
     const [first, setFirst] = useState(false);
@@ -18,10 +19,10 @@ export const ToDoTask = ({ task }: ToDoTaskProps) => {
                     <div
                         className="todo-task-tag"
                         style={{
-                            color: "#F4D35E",
+                            color: TaskImportantColor(task.important),
                         }}
                     >
-                        <i className="ri-alert-line" />
+                        <i className="ri-flag-2-line" />
                         {/* <div className="todo-task-tag-icon" /> */}
                         Important
                     </div>

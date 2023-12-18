@@ -1,0 +1,17 @@
+.dropdown-item {
+    display: flex;
+
+    padding: 0.4rem;
+
+    cursor: pointer;
+}
+
+.dropdown-options > .dropdown-item:last-child::after {
+    border-bottom-left-radius: 0.4rem;
+    border-bottom-right-radius: 0.4rem;
+}
+
+.dropdown-options > .dropdown-item:first-child::after {
+    border-top-left-radius: 0.4rem;
+    border-top-right-radius: 0.4rem;
+}
