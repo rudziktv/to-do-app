@@ -1,6 +1,6 @@
 @import url("https://fonts.googleapis.com/css2?family=Lexend:wght@100;200;300;400;500;600;700;800;900&display=swap");
 :root {
-    font-family: Outfit, Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
+    font-family: Outfit, sans-serif;
 
     color-scheme: light dark;
     color: #ffffff;
@@ -16,13 +16,18 @@
     -webkit-text-size-adjust: 100%;
 }
 
+* {
+    font-family: Outfit, sans-serif;
+    font-weight: 400;
+}
+
 @font-face {
     font-family: Outfit;
     src: url("./assets/fonts/Outfit/Outfit-VariableFont_wght.ttf");
 }
 
 input {
-    font-family: "Lexend";
+    /* font-family: "Lexend"; */
     color: #ffffff;
 }
 

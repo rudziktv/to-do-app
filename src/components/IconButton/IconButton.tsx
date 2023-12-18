@@ -3,13 +3,14 @@ import "./IconButton.css";
 const IconButton = ({
     icon,
     buttonType = "transparent",
+    antiPropagation,
     ...props
 }: IconButtonProps) => {
     return (
         <button
             {...props}
             onClick={(e) => {
-                if (props.antiPropagation) e.stopPropagation();
+                if (antiPropagation) e.stopPropagation();
                 props.onClick?.(e);
             }}
             className={`icon-button ${buttonType} ${props.className}`}

@@ -15,6 +15,19 @@ export const ToDoTask = ({
         editTask?.({ ...task, completed });
     }, [completed]);
 
+    const formatDate = () => {
+        if (!task.date) {
+            return "";
+        }
+
+        const date = new Date(task.date);
+        return date.toLocaleDateString("pl-PL", {
+            year: "numeric",
+            month: "2-digit",
+            day: "2-digit",
+        });
+    };
+
     return (
         <div className="hover-element todo-task" onClick={setSelectedTask}>
             <div className="todo-task-header">
@@ -35,10 +48,13 @@ export const ToDoTask = ({
                     {/* <div className="todo-task-tag-icon" /> */}
                 </div>
 
-                {/* <div className="todo-task-tag">
-                    <i className="ri-calendar-todo-line" />
-                    14-11-2023
-                </div> */}
+                {!!task.date && (
+                    <div className="todo-task-tag">
+                        <i className="ri-calendar-todo-line" />
+                        {formatDate()}
+                    </div>
+                )}
+
                 <div className="todo-task-tag">
                     <div className="todo-task-tag-icon" />
                     Main

@@ -18,6 +18,7 @@ const ToDoPage = () => {
             title: "Create new docs",
             completed: false,
             important: 3,
+            date: "2023-01-24",
         },
         {
             id: crypto.randomUUID(),
@@ -30,6 +31,7 @@ const ToDoPage = () => {
             title: "Done this fucking music app",
             completed: false,
             important: 1,
+            date: "2024-01-04",
         },
         {
             id: crypto.randomUUID(),
@@ -51,6 +53,9 @@ const ToDoPage = () => {
     );
     const [priority, setPriority] = useState(
         tasks[selectedTask]?.important || 0
+    );
+    const [finishDate, setFinishDate] = useState(
+        tasks[selectedTask]?.date || ""
     );
 
     const addNewTask = () => {
@@ -88,6 +93,7 @@ const ToDoPage = () => {
         setTitle(tasks[selectedTask]?.title || "");
         setDescription(tasks[selectedTask]?.description || "");
         setPriority(tasks[selectedTask]?.important || 0);
+        setFinishDate(tasks[selectedTask]?.date || "");
     }, [selectedTask]);
 
     useEffect(() => {
@@ -100,8 +106,9 @@ const ToDoPage = () => {
             title: title,
             description: description,
             important: priority as ImportantLevel,
+            date: finishDate,
         });
-    }, [title, description, priority]);
+    }, [title, description, priority, finishDate]);
 
     return (
         <div className="screen" id="todo-screen">
@@ -215,7 +222,12 @@ const ToDoPage = () => {
                         onTextChange={setDescription}
                     />
 
-                    <TextInput type="date" label="Item Finish Date" />
+                    <TextInput
+                        type="date"
+                        label="Item Finish Date"
+                        value={finishDate}
+                        onTextChange={setFinishDate}
+                    />
 
                     <span>Item Tags</span>
                     <Dropdown

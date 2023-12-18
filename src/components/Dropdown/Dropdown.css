@@ -69,15 +69,20 @@
     bottom: 0;
     left: 0;
 
-    transform: translateY(calc(100% + 1px));
+    transform: translateY(300px);
 
     border-radius: 0.4rem;
 
     scale: 0;
+    opacity: 0;
+
+    transition: 0.2s;
 }
 
 .focused .dropdown-options {
+    transform: translateY(calc(100% + 1px));
     scale: 1;
+    opacity: 1;
 }
 
 .dropdown-divider {

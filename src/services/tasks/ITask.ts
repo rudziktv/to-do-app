@@ -6,7 +6,7 @@ interface ITask {
     description?: string;
     completed: boolean;
     important?: ImportantLevel;
-    date?: Date;
+    date?: string;
 }
 
 export type { ITask };
