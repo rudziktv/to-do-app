@@ -9,36 +9,17 @@ import { ITask } from "../../services/tasks/ITask";
 import IconButton from "../../components/IconButton/IconButton";
 import Dropdown from "../../components/Dropdown/Dropdown";
 import { ImportantLevel } from "../../services/tasks/TaskImportant";
+import DefaultTasks from "../../services/tasks/DefaultTasks";
 
 const ToDoPage = () => {
     const [newTask, setNewTask] = useState("");
-    const [tasks, setTasks] = useState<ITask[]>([
-        {
-            id: crypto.randomUUID(),
-            title: "Create new docs",
-            completed: false,
-            important: 3,
-            date: "2023-01-24",
-        },
-        {
-            id: crypto.randomUUID(),
-            title: "Get some sleep",
-            completed: false,
-            important: 2,
-        },
-        {
-            id: crypto.randomUUID(),
-            title: "Done this fucking music app",
-            completed: false,
-            important: 1,
-            date: "2024-01-04",
-        },
-        {
-            id: crypto.randomUUID(),
-            title: "Don't be so lazy",
-            completed: true,
-        },
-    ]);
+    const [tasks, setTasks] = useState<ITask[]>(
+        JSON.parse(localStorage.getItem("tasks") as string) || DefaultTasks
+    );
+
+    useEffect(() => {
+        localStorage.setItem("tasks", JSON.stringify(tasks));
+    }, [tasks]);
 
     const [selectedTask, setSelectedTask] = useState(0);
 
@@ -165,8 +146,6 @@ const ToDoPage = () => {
                     <span id="todo-content-count">{totalCount}</span>
                 </div>
                 <div id="todo-content-body">
-                    {/* <input type="text" /> */}
-
                     <TextInput
                         leadingIcon={
                             <IconButton
@@ -178,7 +157,6 @@ const ToDoPage = () => {
                         label="Add new task"
                         value={newTask}
                         onTextChange={setNewTask}
-                        // onSubmit={addNewTask}
                         onKeyDown={(e) => {
                             if (e.key == "Enter") {
                                 e.preventDefault();
@@ -186,9 +164,6 @@ const ToDoPage = () => {
                             }
                         }}
                     />
-
-                    {/* <ToDoTask />
-                    <ToDoTask /> */}
                     <div id="todo-content-tasks-wrapper">
                         <div id="todo-content-tasks">
                             {tasks.map((task, index) => (
